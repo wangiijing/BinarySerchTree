@@ -37,29 +37,29 @@ public:
 	}
 	bool Insert(const K &key, const V &value)
 	{
-		//_rootÎª¿Õ
+		//_rootä¸ºç©º
 		if (_root == NULL)
 		{
 			_root = new Node(key, value);
 			return true;
 		}
-		//_root²»Îª¿Õ
+		//_rootä¸ä¸ºç©º
 		Node *parent = NULL;
 		Node *cur = _root;
 		while (cur)
 		{
-			//µ±ÒÑ¾­´æÔÚÊ±£¬·µ»Øfalse
+			//å½“å·²ç»å­˜åœ¨æ—¶ï¼Œè¿”å›žfalse
 			if (cur->key == key)
 			{
 				return false;
 			}
 			parent = cur;
-			//µ±key±Èµ±Ç°½áµãµÄkeyÖµ´óÊ±£¬×ßÓÒ×ÓÊ÷
+			//å½“keyæ¯”å½“å‰ç»“ç‚¹çš„keyå€¼å¤§æ—¶ï¼Œèµ°å³å­æ ‘
 			if (cur->key < key)
 			{
 				cur = cur->right;
 			}
-			//µ±key±Èµ±Ç°½áµãµÄkeyÖµ´óÊ±£¬×ßÓÒ×ÓÊ÷
+			//å½“keyæ¯”å½“å‰ç»“ç‚¹çš„keyå€¼å¤§æ—¶ï¼Œèµ°å³å­æ ‘
 			else
 			{
 				cur = cur->left;
@@ -79,13 +79,13 @@ public:
 			tmp->parent = parent;
 		}
 
-		// ¸üÐÂÆ½ºâÒò×Ó
+		// æ›´æ–°å¹³è¡¡å› å­
 		bool isRotate = false;
 		cur = tmp;
 		parent = cur->parent;
 		//cur = new Node(key, value);
 		//cur->parent = parent;
-		////ÅÐ¶Ïµ±Ç°½áµãÓ¦¸ÃÊÇparentµÄ×óº¢×Ó»¹ÊÇÓÒº¢×Ó
+		////åˆ¤æ–­å½“å‰ç»“ç‚¹åº”è¯¥æ˜¯parentçš„å·¦å­©å­è¿˜æ˜¯å³å­©å­
 		//if (parent->key < key)
 		//{
 		//	parent->right = cur;
@@ -94,7 +94,7 @@ public:
 		//{
 		//	parent->left = cur;
 		//}
-		////¸ü¸ÄÆ½ºâÒò×Ó
+		////æ›´æ”¹å¹³è¡¡å› å­
 		//bool isRotate = false;
 		while (parent)
 		{
@@ -117,7 +117,7 @@ public:
 			}
 			else
 			{
-				//Ðý×ª
+				//æ—‹è½¬
 				if (parent->balance_factor == 2)
 				{
 					if (cur->balance_factor == 1)
@@ -188,7 +188,7 @@ private:
 
 		if (balance_factor != root->balance_factor)
 		{
-			cout << "Æ½ºâÒò×ÓÒì³££º" << root->key << endl;
+			cout << "å¹³è¡¡å› å­å¼‚å¸¸ï¼š" << root->key << endl;
 		}
 
 		return balance_factor == root->balance_factor && abs(balance_factor) < 2
@@ -217,7 +217,7 @@ private:
 		subR->parent = parent->parent;
 		parent->parent = subR;
 
-		// ¸üÐÂÆ½ºâÒò×Ó
+		// æ›´æ–°å¹³è¡¡å› å­
 		parent->balance_factor = subR->balance_factor = 0;
 
 		parent = subR;
@@ -234,7 +234,7 @@ private:
 	    subL->right = parent;
 	    subL->parent = parent->parent;
 	    parent->parent = subL;
-	    // ¸üÐÂÆ½ºâÒò×Ó
+	    // æ›´æ–°å¹³è¡¡å› å­
 	    parent->balance_factor = subL->balance_factor = 0;
 	    parent = subL;
     }
@@ -246,7 +246,7 @@ private:
 		int balance_factor = subLRNode->balance_factor;//      /  \                   /   \                /   \      /     \ 
 		_RotateL(parent->left);                    //     subLL  subLR             subL subLRR         subLL subLRL subLRR  subR  
 		_RotateR(parent);                          //            /   \            /   \  
-		// ¸üÐÂÆ½ºâÒò×Ó                   //                 subLRL subLRR      subLL subLRL
+		// æ›´æ–°å¹³è¡¡å› å­                   //                 subLRL subLRR      subLL subLRL
 		if (balance_factor == -1)
 		{
 			subLNode->balance_factor = 0;
@@ -269,10 +269,10 @@ private:
 		Node* pNode = parent;                            //        parent               parent                    subRL
 		Node* subRNode = parent->right;                   //       /    \               /    \                    /    \ 
 		Node* subRLNode = subRNode->left;                //      subL  subR          subL    subRL           parent     subR
-	    int balance_factor = subRLNode->balance_factor;  //            /   \                 /   \          /     \     /    \ 
-		_RotateR(parent->right);                        //          subRL subRR          subRLL  subR      subL subRLL subRLR subRR
-		_RotateL(parent);                            //             /   \                        /   \
-		// ¸üÐÂÆ½ºâÒò×Ó                              //         subRLL subRLR                 sunRLR subRR      
+	    int balance_factor = subRLNode->balance_factor;  //                /   \                /   \           /     \     /    \ 
+		_RotateR(parent->right);                        //           subRL subRR       subRLL  subR      subL subRLL subRLR subRR
+		_RotateL(parent);                            //              /   \                     /   \
+		// æ›´æ–°å¹³è¡¡å› å­                              //           subRLL subRLR            sunRLR subRR      
 		if (balance_factor == 1)           
 		{
 			subRNode->balance_factor = 0;
@@ -305,27 +305,3 @@ private:
 private:
 	Node *_root;
 };
-void TestAVLTree()
-{
-	AVLTree<int, int> t;
-	int a[] = { 16, 3, 7, 11, 9, 26, 18, 14, 15 };
-	for (size_t i = 0; i < sizeof(a) / sizeof(a[0]); ++i)
-	{
-		t.Insert(a[i], i);
-	}
-
-	t.InOrder();
-
-	cout << "tÊÇ·ñÆ½ºâ£¿" << t.IsBlance() << endl;
-
-	AVLTree<int, int> t1;
-	int a1[] = { 4, 2, 6, 1, 3, 5, 15, 7, 16, 14 };
-	for (size_t i = 0; i < sizeof(a1) / sizeof(a1[0]); ++i)
-	{
-		t1.Insert(a1[i], i);
-	}
-
-	t1.InOrder();
-
-	cout << "t1ÊÇ·ñÆ½ºâ£¿" << t1.IsBlance() << endl;
-}
